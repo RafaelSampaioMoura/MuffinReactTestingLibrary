@@ -29,6 +29,7 @@ class Pokedex extends React.Component {
   fetchFilteredPokemons() {
     const { pokemons } = this.props;
     const { filteredType } = this.state;
+    // console.log(pokemons);
 
     return pokemons.filter((pokemon) => {
       if (filteredType === 'all') return true;
