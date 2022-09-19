@@ -2,95 +2,120 @@ import Pokedex from '../pages/Pokedex';
 import renderWithRouter from '../renderWithRouter';
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-
-const mockPokemons = [
-  {
-    id: 25,
-    name: 'Pikachu',
-    type: 'Electric',
-    averageWeight: {
-      value: '6.0',
-      measurementUnit: 'kg',
-    },
-    image: 'https://cdn2.bulbagarden.net/upload/b/b2/Spr_5b_025_m.png',
-    moreInfo: 'https://bulbapedia.bulbagarden.net/wiki/Pikachu_(Pok%C3%A9mon)',
-    foundAt: [
-      {
-        location: 'Kanto Viridian Forest',
-        map: 'https://cdn2.bulbagarden.net/upload/0/08/Kanto_Route_2_Map.png',
-      },
-      {
-        location: 'Kanto Power Plant',
-        map: 'https://cdn2.bulbagarden.net/upload/b/bd/Kanto_Celadon_City_Map.png',
-      },
-    ],
-    summary:
-      'This intelligent Pokémon roasts hard berries with electricity to make them tender enough to eat.',
-  },
-  {
-    id: 4,
-    name: 'Charmander',
-    type: 'Fire',
-    averageWeight: {
-      value: '8.5',
-      measurementUnit: 'kg',
-    },
-    image: 'https://cdn2.bulbagarden.net/upload/0/0a/Spr_5b_004.png',
-    moreInfo:
-      'https://bulbapedia.bulbagarden.net/wiki/Charmander_(Pok%C3%A9mon)',
-    foundAt: [
-      {
-        location: 'Alola Route 3',
-        map: 'https://cdn2.bulbagarden.net/upload/9/93/Alola_Route_3_Map.png',
-      },
-      {
-        location: 'Kanto Route 3',
-        map: 'https://cdn2.bulbagarden.net/upload/4/4a/Kanto_Route_3_Map.png',
-      },
-      {
-        location: 'Kanto Route 4',
-        map: 'https://cdn2.bulbagarden.net/upload/2/24/Kanto_Route_4_Map.png',
-      },
-      {
-        location: 'Kanto Rock Tunnel',
-        map: 'https://cdn2.bulbagarden.net/upload/6/6f/Kanto_Rock_Tunnel_Map.png',
-      },
-    ],
-    summary:
-      'The flame on its tail shows the strength of its life force. If it is weak, the flame also burns weakly.',
-  },
-  {
-    id: 148,
-    name: 'Dragonair',
-    type: 'Dragon',
-    averageWeight: {
-      value: '16.5',
-      measurementUnit: 'kg',
-    },
-    image: 'https://cdn2.bulbagarden.net/upload/2/2c/Spr_5b_148.png',
-    moreInfo:
-      'https://bulbapedia.bulbagarden.net/wiki/Dragonair_(Pok%C3%A9mon)',
-    foundAt: [
-      {
-        location: 'Johto Route 45',
-        map: 'https://cdn2.bulbagarden.net/upload/2/21/Johto_Route_45_Map.png',
-      },
-      {
-        location: "Johto Dragon's Den",
-        map: 'https://cdn2.bulbagarden.net/upload/1/1e/Johto_Dragons_Den_Map.png',
-      },
-    ],
-    summary:
-      'They say that if it emits an aura from its whole body, the weather will begin to change instantly.',
-  },
-];
+import App from '../App';
 
 describe('#Pokedex', () => {
-  test('', async () => {
-    renderWithRouter(<Pokedex />);
+  test('', () => {
+    renderWithRouter(<App />);
 
-    const getHeader = await screen.findByText('Encountered pokémons');
-
+    const getHeader = screen.getByRole('heading', {
+      name: 'Encountered pokémons',
+    });
+    // console.log(getHeader);
     expect(getHeader).toBeInTheDocument();
+  });
+
+  test('', () => {
+    renderWithRouter(<App />);
+
+    const getPokemonName = screen.getByTestId('pokemon-name');
+    const getPokemonType = screen.getByTestId('pokemon-type');
+    const getPokemonWeight = screen.getByTestId('pokemon-weight');
+
+    expect(getPokemonName).toHaveTextContent('Pikachu');
+    expect(getPokemonType).toHaveTextContent('Electric');
+    expect(getPokemonWeight).toHaveTextContent('Average weight: 6.0 kg');
+
+    const nextPokemonBtn = screen.getByRole('button', {
+      name: 'Próximo pokémon',
+    });
+    // console.log(nextPokemonBtn);
+    userEvent.click(nextPokemonBtn);
+
+    expect(getPokemonName).toHaveTextContent('Charmander');
+    expect(getPokemonType).toHaveTextContent('Fire');
+    expect(getPokemonWeight).toHaveTextContent('Average weight: 8.5 kg');
+
+    userEvent.click(nextPokemonBtn);
+    userEvent.click(nextPokemonBtn);
+    userEvent.click(nextPokemonBtn);
+    userEvent.click(nextPokemonBtn);
+    userEvent.click(nextPokemonBtn);
+    userEvent.click(nextPokemonBtn);
+    userEvent.click(nextPokemonBtn);
+
+    expect(getPokemonName).toHaveTextContent('Dragonair');
+    expect(getPokemonType).toHaveTextContent('Dragon');
+    expect(getPokemonWeight).toHaveTextContent('Average weight: 16.5 kg');
+
+    userEvent.click(nextPokemonBtn);
+
+    expect(getPokemonName).toHaveTextContent('Pikachu');
+    expect(getPokemonType).toHaveTextContent('Electric');
+    expect(getPokemonWeight).toHaveTextContent('Average weight: 6.0 kg');
+
+    // console.log(getPokemonName);
+  });
+
+  test('', () => {
+    renderWithRouter(<App />);
+
+    const getPokemonNames = screen.getAllByTestId('pokemon-name');
+    const getPokemonTypes = screen.getAllByTestId('pokemon-type');
+    const getPokemonWeights = screen.getAllByTestId('pokemon-weight');
+
+    expect(getPokemonNames.length).toBe(1);
+    expect(getPokemonTypes.length).toBe(1);
+    expect(getPokemonWeights.length).toBe(1);
+  });
+
+  test('', () => {
+    renderWithRouter(<App />);
+    const filterBtns = screen.getAllByTestId('pokemon-type-button');
+    const magicNumber = 7;
+
+    expect(filterBtns.length).toBe(magicNumber);
+
+    const isDuplicate = filterBtns.some((button) => {
+      if (filterBtns.indexOf(button) !== filterBtns.lastIndexOf(button)) {
+        return true;
+      }
+    });
+
+    expect(isDuplicate).toBeFalsy();
+  });
+
+  test('', () => {
+    renderWithRouter(<App />);
+    const filterBtns = screen.getAllByTestId('pokemon-type-button');
+
+    filterBtns.forEach((button) => {
+      const getPokemonType = screen.getByTestId('pokemon-type');
+      const allBtn = screen.getByRole('button', { name: 'All'});
+      userEvent.click(button);
+      // console.log(button.innerHTML);
+      expect(getPokemonType).toHaveTextContent(button.innerHTML);
+      expect(allBtn).toBeInTheDocument();
+    });
+  });
+
+  test('', () => {
+    renderWithRouter(<App />);
+    const allBtn = screen.getByRole('button', { name: 'All' });
+    const fireBtn = screen.getByRole('button', { name: 'Fire' });
+
+    expect(allBtn).toBeInTheDocument();
+
+    const getPokemonType = screen.getByTestId('pokemon-type');
+
+    expect(getPokemonType).toHaveTextContent('Electric');
+
+    userEvent.click(fireBtn);
+
+    expect(getPokemonType).toHaveTextContent('Fire');
+
+    userEvent.click(allBtn);
+
+    expect(getPokemonType).toHaveTextContent('Electric');
   });
 });
