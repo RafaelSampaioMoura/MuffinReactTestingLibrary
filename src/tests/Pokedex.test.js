@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import App from '../App';
 
 describe('#Pokedex', () => {
-  test('', () => {
+  test('Header tem o texto correto', () => {
     renderWithRouter(<App />);
 
     const getHeader = screen.getByRole('heading', {
@@ -15,7 +15,7 @@ describe('#Pokedex', () => {
     expect(getHeader).toBeInTheDocument();
   });
 
-  test('', () => {
+  test('Os filtros funcionam corretamente', () => {
     renderWithRouter(<App />);
 
     const getPokemonName = screen.getByTestId('pokemon-name');
@@ -57,7 +57,7 @@ describe('#Pokedex', () => {
     // console.log(getPokemonName);
   });
 
-  test('', () => {
+  test('A quantidade correta de botões é renderizada na tela', () => {
     renderWithRouter(<App />);
 
     const getPokemonNames = screen.getAllByTestId('pokemon-name');
@@ -69,7 +69,7 @@ describe('#Pokedex', () => {
     expect(getPokemonWeights.length).toBe(1);
   });
 
-  test('', () => {
+  test('Os botões não se repetem', () => {
     renderWithRouter(<App />);
     const filterBtns = screen.getAllByTestId('pokemon-type-button');
     const magicNumber = 7;
@@ -85,13 +85,13 @@ describe('#Pokedex', () => {
     expect(isDuplicate).toBeFalsy();
   });
 
-  test('', () => {
+  test('Os botões filtram corretamente', () => {
     renderWithRouter(<App />);
     const filterBtns = screen.getAllByTestId('pokemon-type-button');
 
     filterBtns.forEach((button) => {
       const getPokemonType = screen.getByTestId('pokemon-type');
-      const allBtn = screen.getByRole('button', { name: 'All'});
+      const allBtn = screen.getByRole('button', { name: 'All' });
       userEvent.click(button);
       // console.log(button.innerHTML);
       expect(getPokemonType).toHaveTextContent(button.innerHTML);
@@ -99,7 +99,7 @@ describe('#Pokedex', () => {
     });
   });
 
-  test('', () => {
+  test('O botão All reseta o filtro e renderiza na tela', () => {
     renderWithRouter(<App />);
     const allBtn = screen.getByRole('button', { name: 'All' });
     const fireBtn = screen.getByRole('button', { name: 'Fire' });
