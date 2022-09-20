@@ -3,8 +3,8 @@ import { act, getByText, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 
-describe('', () => {
-  test('', () => {
+describe('#Pokemon', () => {
+  test('A página renderiza corretamente.', () => {
     const { history } = renderWithRouter(<App />);
 
     const moreDetailsLink = screen.getByRole('link', { name: 'More details' });
@@ -13,12 +13,12 @@ describe('', () => {
     // console.log(moreDetailsLink);
     userEvent.click(moreDetailsLink);
 
-    expect(history.location.pathname).toBe(`/pokemons/25`);
+    expect(history.location.pathname).toBe('/pokemons/25');
 
     const pokemonName = screen.getByText('Pikachu');
     const pokemonType = screen.getByText('Electric');
     const pokemonWeight = screen.getByText(
-      /Average weight: [+-]?([0-9]*[.])?[0-9]+ kg/i
+      /Average weight: [+-]?([0-9]*[.])?[0-9]+ kg/i,
     );
     const pokemonImage = screen.getByAltText(/ sprite/i);
     // console.log(pokemonWeight);
