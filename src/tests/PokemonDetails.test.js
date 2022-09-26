@@ -1,8 +1,7 @@
-import renderWithRouter from '../renderWithRouter';
-import { act, getByText, render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
-import { toBeInTheDocument } from '@testing-library/jest-dom/dist/matchers';
+import renderWithRouter from '../renderWithRouter';
 
 describe('#PokemonDetails', () => {
   test('', () => {

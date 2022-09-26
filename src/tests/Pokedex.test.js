@@ -1,8 +1,9 @@
-import Pokedex from '../pages/Pokedex';
-import renderWithRouter from '../renderWithRouter';
-import { act, render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import renderWithRouter from '../renderWithRouter';
 import App from '../App';
+
+const pokemonType = 'pokemon-type';
 
 describe('#Pokedex', () => {
   test('Header tem o texto correto', () => {
@@ -19,7 +20,7 @@ describe('#Pokedex', () => {
     renderWithRouter(<App />);
 
     const getPokemonName = screen.getByTestId('pokemon-name');
-    const getPokemonType = screen.getByTestId('pokemon-type');
+    const getPokemonType = screen.getByTestId(pokemonType);
     const getPokemonWeight = screen.getByTestId('pokemon-weight');
 
     expect(getPokemonName).toHaveTextContent('Pikachu');
@@ -61,7 +62,7 @@ describe('#Pokedex', () => {
     renderWithRouter(<App />);
 
     const getPokemonNames = screen.getAllByTestId('pokemon-name');
-    const getPokemonTypes = screen.getAllByTestId('pokemon-type');
+    const getPokemonTypes = screen.getAllByTestId(pokemonType);
     const getPokemonWeights = screen.getAllByTestId('pokemon-weight');
 
     expect(getPokemonNames.length).toBe(1);
@@ -76,11 +77,9 @@ describe('#Pokedex', () => {
 
     expect(filterBtns.length).toBe(magicNumber);
 
-    const isDuplicate = filterBtns.some((button) => {
-      if (filterBtns.indexOf(button) !== filterBtns.lastIndexOf(button)) {
-        return true;
-      }
-    });
+    const isDuplicate = filterBtns.some(
+      (button) => filterBtns.indexOf(button) !== filterBtns.lastIndexOf(button),
+    );
 
     expect(isDuplicate).toBeFalsy();
   });
@@ -90,7 +89,7 @@ describe('#Pokedex', () => {
     const filterBtns = screen.getAllByTestId('pokemon-type-button');
 
     filterBtns.forEach((button) => {
-      const getPokemonType = screen.getByTestId('pokemon-type');
+      const getPokemonType = screen.getByTestId(pokemonType);
       const allBtn = screen.getByRole('button', { name: 'All' });
       userEvent.click(button);
       // console.log(button.innerHTML);
@@ -106,7 +105,7 @@ describe('#Pokedex', () => {
 
     expect(allBtn).toBeInTheDocument();
 
-    const getPokemonType = screen.getByTestId('pokemon-type');
+    const getPokemonType = screen.getByTestId(pokemonType);
 
     expect(getPokemonType).toHaveTextContent('Electric');
 

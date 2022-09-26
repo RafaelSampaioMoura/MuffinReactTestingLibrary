@@ -1,8 +1,7 @@
-import { act, render, screen } from '@testing-library/react';
-import renderWithRouter from '../renderWithRouter';
-import { BrowserRouter, Router } from 'react-router-dom';
-import App from '../App';
+import { act, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import renderWithRouter from '../renderWithRouter';
+import App from '../App';
 
 // const MockApp = () => {
 //   <Router>
@@ -67,7 +66,7 @@ describe('#App', () => {
     expect(getNotFoundTitle).toBeInTheDocument();
 
     const getNotFoundAltText = screen.getByAltText(
-      'Pikachu crying because the page requested was not found'
+      'Pikachu crying because the page requested was not found',
     );
     expect(getNotFoundAltText).toBeInTheDocument();
   });

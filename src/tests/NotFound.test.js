@@ -1,5 +1,5 @@
+import { screen } from '@testing-library/react';
 import NotFound from '../pages/NotFound';
-import { act, render, screen } from '@testing-library/react';
 import renderWithRouter from '../renderWithRouter';
 
 describe('#NotFound', () => {

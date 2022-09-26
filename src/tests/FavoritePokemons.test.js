@@ -1,8 +1,8 @@
-import { act, render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import renderWithRouter from '../renderWithRouter';
 import FavoritePokemons from '../pages/FavoritePokemons';
 import App from '../App';
-import userEvent from '@testing-library/user-event';
 
 describe('#FavoritePokemons', () => {
   test('Testa se "No favorite pokemon found" aparece na tela', () => {
